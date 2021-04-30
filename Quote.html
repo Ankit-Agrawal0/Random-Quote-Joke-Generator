@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Random quote</title>
+  <script src="https://kit.fontawesome.com/bb78fd792d.js" crossorigin="anonymous"></script>
+  <style type="text/css" media="all">
+    body {
+      background-image: url('./background-image.jpg');
+    
+      color: #fff;
+      background-repeat:no-repeat;
+      height: 100vh;
+    }
+
+    #text {
+      font-size: 30px;
+      font-weight: bold;
+    }
+    #text2 {
+      font-size: 23px;
+      font-weight: normal;
+      right: 60px;
+    }
+    .heading{
+      text-decoration: underline;
+    }
+    a{
+      background-color: orange;
+      border-radius: 5px;
+      text-decoration: none;
+      padding: 10px;
+      margin-left:42%;
+      height: 18px;
+      margin-top: 3px;
+    }
+    #newQuote{
+      text-align: center;
+      color: white;
+      background-color: orange;
+      border-radius: 10px;
+      margin-left: 40%;
+      padding: 10px;
+      outline: none;
+      font-size: 30px;
+      border: none;
+    }
+    
+    @media screen and (max-width:450px){
+      #newQuote{
+        margin-left: 18%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="/Jokes.html">Get Jokes!</a>
+  
+  <h1 class="heading">Quote</h1><br />
+  <div class="">
+  <p id="text"></p>
+  <p align="right" id="text2"></p>
+  </div>
+ <button id="newQuote"onclick="generateQuote()" type="submit">Generate Quote</button>
+  
+  
+  <script>
+    const text = document.querySelector('#text')
+    const text2 = document.querySelector("#text2")
+    const url = 'https://api.quotable.io/random'
+
+
+    function generateQuote() {
+      fetch(url)
+      .then(function(data) {
+        return data.json();
+      })
+      .then(function(data) {
+        console.log(data)
+        text.innerHTML = `<sup><i id="left" class="fas fa-quote-left"></i></sup> ` +"   " + data.content + "   " +`<sub><i id="right" class="fas fa-quote-right"></i></sub>`;
+        text2.innerHTML = "   - " + data.author;
+      })
+    }
+
+   setInterval(generateQuote(), 1000); 
+  </script>
+</body>

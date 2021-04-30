@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Random joke</title>
+  <style type="text/css" media="all">
+    body {
+      background-image: url('./background-image.jpg');
+
+      color: #fff;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+    #text,#text2 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .heading {
+      text-decoration: underline;
+    }
+    a {
+      background-color: orange;
+      border-radius: 5px;
+      text-decoration: none;
+      padding: 10px;
+      margin-left: 42%;
+      height: 18px;
+      margin-top: 3px;
+    }
+    #newjoke{
+      text-align: center;
+      color: white;
+      background-color: orange;
+      border-radius: 10px;
+      margin-left: 40%;
+      padding: 10px;
+      outline: none;
+      font-size: 30px;
+      border: none;
+    }
+     @media screen and (max-width:450px){
+      #newjoke{
+        margin-left: 18%;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <a href="/Quote.html">Get Quotes</a>
+  <h1 class="heading">jokes</h1>
+  <p id="text">
+    ....
+  </p>
+  <p id="text2"></p>
+   <button id="newjoke"onclick="generateJoke()" type="submit">Generate Joke</button>
+  
+  <script>
+    const text = document.getElementById('text')
+    const text2 = document.getElementById('text2')
+    const url = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,sexist,explicit'
+
+    function generateJoke() {
+      fetch(url)
+      .then((resp) => resp.json())
+      .then(function(data) {
+        console.log(data)
+        if (data["setup"]) {
+          text.innerHTML = data["setup"]
+          text2.innerHTML = data["delivery"]
+        } else {
+          text.innerHTML = data["joke"]
+        }
+      })
+    }
+    setInterval(generateJoke() , 1000)
+
+  </script>
+</body>
